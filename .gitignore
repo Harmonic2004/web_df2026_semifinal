@@ -12,4 +12,4 @@ backend/model_weights/*.pt
 backend/model_weights/*.onnx
 backend/model_weights/*.pkl
 backend/model_weights/*.bin
-backend/data/X_train.csv
+# backend/data/X_train.csv
