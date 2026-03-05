@@ -1,0 +1,36 @@
+const BASE = '/api/v1'
+
+async function handleResponse(res) {
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({ detail: res.statusText }))
+    throw new Error(err.detail || `HTTP ${res.status}`)
+  }
+  return res.json()
+}
+
+export const api = {
+  // POST /predict → { prediction, explainability, similar_sequences }
+  async predict(sequence) {
+    const res = await fetch(`${BASE}/predict`, {
+      method:  'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body:    JSON.stringify({ sequence }),
+    })
+    return handleResponse(res)
+  },
+
+  // POST /predict/batch → blob JSON download
+  async predictBatch(file) {
+    const form = new FormData()
+    form.append('file', file)
+    const res = await fetch(`${BASE}/predict/batch`, {
+      method: 'POST',
+      body:   form,
+    })
+    if (!res.ok) {
+      const err = await res.json().catch(() => ({ detail: res.statusText }))
+      throw new Error(err.detail || `HTTP ${res.status}`)
+    }
+    return res.blob()
+  },
+}
