@@ -1,4 +1,5 @@
-const BASE = '/api/v1'
+const BASE_URL = import.meta.env.VITE_API_URL || ''
+const BASE = `${BASE_URL}/api/v1`
 
 async function handleResponse(res) {
   if (!res.ok) {
