@@ -25,8 +25,8 @@ export default function ExplainabilityPanel({ sequence, explainability }) {
       </div>
 
       <p className="text-xs text-slate-400 leading-relaxed">
-        Token importance dựa trên attention trung bình của CLS token qua tất cả layers và heads.
-        Token được highlight đậm hơn = được model chú ý nhiều hơn.
+        Token importance is computed from the average attention of the CLS token across all layers and heads. 
+        Tokens highlighted more strongly receive higher attention from the model.
       </p>
 
       {/* Token heatmap */}
