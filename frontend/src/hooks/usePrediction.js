@@ -15,7 +15,7 @@ export function usePrediction() {
 
   // Health check khi mount
   useEffect(() => {
-    fetch('/health')
+    fetch(`${import.meta.env.VITE_API_URL || ''}/health`)
       .then(r => r.json())
       .then(d => setModelActive(d?.status === 'ok' && d?.model_loaded === true))
       .catch(() => setModelActive(false))
