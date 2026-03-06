@@ -34,4 +34,18 @@ export const api = {
     }
     return res.blob()
   },
+
+  async analyzeFile(file) {
+    const form = new FormData()
+    form.append('file', file)
+    const res = await fetch(`${BASE}/analyze`, { method: 'POST', body: form })
+    return handleResponse(res)
+  },
+
+  async predictBatchResults(file) {
+    const form = new FormData()
+    form.append('file', file)
+    const res = await fetch(`${BASE}/predict/batch/results`, { method: 'POST', body: form })
+    return handleResponse(res)
+  },
 }
