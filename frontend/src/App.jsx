@@ -6,7 +6,7 @@ import ExplainabilityPanel from './components/ExplainabilityPanel'
 import SimilarSequences from './components/SimilarSequences'
 import BatchStats from './components/BatchStats'
 import BatchCharts from './components/BatchCharts'
-import BatchPredictionResults from './components/BatchPredictionResults'
+
 import { usePrediction } from './hooks/usePrediction'
 import { api } from './services/api'
 
@@ -16,7 +16,6 @@ export default function App() {
   const { result, status, error, modelActive, runPredict } = usePrediction()
   const [currentSequence, setCurrentSequence] = useState([])
 
-  // ── Tab state lifted lên đây — InputSection chỉ đọc qua prop ──────────────
   const [activeTab, setActiveTab] = useState('raw')
 
   const [analyzeData,    setAnalyzeData]    = useState(null)
@@ -53,7 +52,6 @@ export default function App() {
 
   const globalError = error || analyzeError || batchError
 
-  // Props chung cho InputSection
   const inputProps = {
     activeTab,
     onTabChange:    setActiveTab,
@@ -77,11 +75,11 @@ export default function App() {
               <line x1="12" y1="8" x2="12" y2="12"/>
               <line x1="12" y1="16" x2="12.01" y2="16"/>
             </svg>
-            <span className="font-medium">Error:</span> {globalError}
+            <span className="font-medium">Lỗi:</span> {globalError}
           </div>
         )}
 
-        {/* ── RAW TAB ──────────────────────────────────────────────────── */}
+        {/* ── TAB NHẬP CHUỖI ──────────────────────────────────────────── */}
         {activeTab === 'raw' && (
           <main className="grid grid-cols-1 lg:grid-cols-12 gap-6">
             <div className="lg:col-span-5 flex flex-col gap-5">
@@ -98,21 +96,21 @@ export default function App() {
           </main>
         )}
 
-        {/* ── BATCH TAB ────────────────────────────────────────────────── */}
+        {/* ── TAB UPLOAD HÀNG LOẠT ────────────────────────────────────── */}
         {activeTab === 'batch' && (
           <div className="flex flex-col gap-6">
 
-            {/* Row 1: Upload | Stats 2×2 | Histogram */}
+            {/* Hàng 1: Upload | Stats 2×2 | Histogram */}
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
               <InputSection {...inputProps} />
               <BatchStats data={analyzeData} loading={analyzeLoading} />
               <BatchCharts.Histogram data={analyzeData} loading={analyzeLoading} />
             </div>
 
-            {/* Row 2: Prefix-3 | Prediction Results */}
+            {/* Hàng 2: Thống kê 6 attr (thu nhỏ) | Token Importance */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              <BatchCharts.Prefix3 data={analyzeData} loading={analyzeLoading} />
-              <BatchPredictionResults data={batchResult} loading={batchLoading} />
+              <BatchCharts.AttrOutputStats data={batchResult} loading={batchLoading} />
+              <BatchCharts.TokenImportance data={batchResult} loading={batchLoading} />
             </div>
 
           </div>
