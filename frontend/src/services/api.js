@@ -20,7 +20,7 @@ export const api = {
     return handleResponse(res)
   },
 
-  // POST /predict/batch → blob JSON download
+  // POST /predict/batch → blob CSV download
   async predictBatch(file) {
     const form = new FormData()
     form.append('file', file)
@@ -35,6 +35,7 @@ export const api = {
     return res.blob()
   },
 
+  // POST /analyze → thống kê file
   async analyzeFile(file) {
     const form = new FormData()
     form.append('file', file)
@@ -42,6 +43,7 @@ export const api = {
     return handleResponse(res)
   },
 
+  // POST /predict/batch/results → kết quả + attr_stats
   async predictBatchResults(file) {
     const form = new FormData()
     form.append('file', file)
