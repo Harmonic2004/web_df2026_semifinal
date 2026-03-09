@@ -1,10 +1,11 @@
+// Tất cả card dùng chung màu indigo cho Confidence
 const ATTR_CONFIG = [
-  { color: 'blue',    bg: 'bg-blue-50',    bar: 'bg-blue-500',    text: 'text-blue-700',   ring: 'ring-blue-200'   },
-  { color: 'emerald', bg: 'bg-emerald-50', bar: 'bg-emerald-500', text: 'text-emerald-700',ring: 'ring-emerald-200'},
-  { color: 'indigo',  bg: 'bg-indigo-50',  bar: 'bg-indigo-500',  text: 'text-indigo-700', ring: 'ring-indigo-200' },
-  { color: 'amber',   bg: 'bg-amber-50',   bar: 'bg-amber-500',   text: 'text-amber-700',  ring: 'ring-amber-200'  },
-  { color: 'rose',    bg: 'bg-rose-50',    bar: 'bg-rose-500',    text: 'text-rose-700',   ring: 'ring-rose-200'   },
-  { color: 'violet',  bg: 'bg-violet-50',  bar: 'bg-violet-500',  text: 'text-violet-700', ring: 'ring-violet-200' },
+  { bg: 'bg-blue-50',    text: 'text-blue-700',   bar: 'bg-blue-500'    },
+  { bg: 'bg-emerald-50', text: 'text-emerald-700', bar: 'bg-emerald-500' },
+  { bg: 'bg-indigo-50',  text: 'text-indigo-700',  bar: 'bg-indigo-500'  },
+  { bg: 'bg-amber-50',   text: 'text-amber-700',   bar: 'bg-amber-500'   },
+  { bg: 'bg-rose-50',    text: 'text-rose-700',    bar: 'bg-rose-500'    },
+  { bg: 'bg-violet-50',  text: 'text-violet-700',  bar: 'bg-violet-500'  },
 ]
 
 export default function AttributeCard({ index, value, probability, skeleton = false }) {
@@ -28,8 +29,8 @@ export default function AttributeCard({ index, value, probability, skeleton = fa
   }
 
   return (
-    <div className={`card p-4 flex flex-col hover:shadow-card-hover transition-shadow`}>
-      {/* Label */}
+    <div className="card p-4 flex flex-col hover:shadow-card-hover transition-shadow">
+      {/* Nhãn */}
       <div className="flex items-center justify-between mb-2">
         <span className={`badge ${cfg.bg} ${cfg.text} border border-current/10 font-semibold`}>
           Attr_{index + 1}
@@ -39,23 +40,23 @@ export default function AttributeCard({ index, value, probability, skeleton = fa
         </svg>
       </div>
 
-      {/* Value */}
+      {/* Giá trị */}
       <div className="font-mono font-bold text-2xl text-slate-900 tabular-nums">
         {value != null ? value.toLocaleString() : '—'}
       </div>
       <div className="text-[10px] text-slate-400 mt-0.5 font-mono">UINT16</div>
 
-      {/* Probability bar */}
+      {/* Thanh Confidence — dùng chung màu indigo */}
       <div className="mt-auto pt-4">
         <div className="flex justify-between text-xs text-slate-400 mb-1.5">
-          <span>Confidence</span>
-          <span className={`font-semibold ${cfg.text}`}>
+          <span>Độ tin cậy</span>
+          <span className="font-semibold text-indigo-600">
             {pct != null ? `${pct}%` : '—'}
           </span>
         </div>
         <div className="w-full h-1.5 bg-slate-100 rounded-full overflow-hidden">
           <div
-            className={`${cfg.bar} h-full rounded-full transition-all duration-700`}
+            className="bg-indigo-500 h-full rounded-full transition-all duration-700"
             style={{ width: pct != null ? `${pct}%` : '0%' }}
           />
         </div>
